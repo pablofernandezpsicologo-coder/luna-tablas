@@ -73,7 +73,7 @@ export function mount(container, state, params, navigate) {
       fb.style.color = '#2e7d32';
       particles.confetti(50);
       const tiempoMs = Date.now() - t0;
-      const estrellas = calcularEstrellas(1, 0, tiempoMs);
+      const estrellas = tiempoMs < 8000 ? 3 : tiempoMs < 20000 ? 2 : 1;
       completarEscena(state, nivel, escena.id, estrellas, 10);
     } else {
       sfxError();

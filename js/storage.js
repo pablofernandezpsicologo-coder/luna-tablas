@@ -41,9 +41,9 @@ export function completarEscena(state, nivel, escenaId, estrellas, monedas) {
   n.estrellas = Math.max(n.estrellas, estrellas);
   n.monedas += monedas;
   state.monedas_total += monedas;
-  // desbloquear siguiente nivel si ≥2 estrellas y nivel completado
+  // desbloquear siguiente nivel al completar todas las escenas
   const totalEscenas = 10;
-  if (estrellas >= 2 && n.escenas_ok.length >= totalEscenas && nivel < 5) {
+  if (n.escenas_ok.length >= totalEscenas && nivel < 5) {
     state.niveles[nivel + 1].desbloqueado = true;
   }
   save(state);
