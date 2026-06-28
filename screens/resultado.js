@@ -1,11 +1,19 @@
 import { sfxNivelSuperado } from '../js/audio.js';
 import { ParticleSystem } from '../js/canvas/particles.js';
+import { save } from '../js/storage.js';
 
 let particles = null;
 
 export function mount(container, state, params, navigate) {
   const { nivel, tipo='practica', aciertos=10, fallos=0, estrellas=3 } = params;
   const n = state.niveles[nivel];
+
+  // Práctica completada con ≥2 estrellas → desbloquear siguiente nivel
+  if (tipo === 'practica' && estrellas >= 2 && nivel < 5) {
+    if (estrellas > (n.estrellas || 0)) n.estrellas = estrellas;
+    state.niveles[nivel + 1].desbloqueado = true;
+    save(state);
+  }
 
   sfxNivelSuperado();
 
@@ -25,7 +33,7 @@ export function mount(container, state, params, navigate) {
         <p style="font-size:1rem;color:#f57f17">💰 Monedas nivel: <strong>${n.monedas}</strong></p>
         <p style="font-size:1rem;color:#7b1fa2">💰 Total: <strong>${state.monedas_total}</strong></p>
       </div>
-      ${tipo === 'nivel_completo' && nivel < 5 && state.niveles[nivel+1]?.desbloqueado ?
+      ${nivel < 5 && state.niveles[nivel+1]?.desbloqueado ?
         '<p style="color:#2e7d32;font-weight:bold">🔓 ¡Has desbloqueado el siguiente reino!</p>' : ''}
       <div style="display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center">
         <button id="btn-seguir" class="btn-kawaii">Continuar ✨</button>
