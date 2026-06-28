@@ -40,11 +40,8 @@ export function mount(container, state, params, navigate) {
       </div>
       <div style="padding:3.5rem 1rem 1rem;flex:1;display:flex;flex-direction:column;gap:.8rem;overflow-y:auto">
         <div class="card-kawaii" style="text-align:center">
-          <p style="font-size:.95rem;color:#4a148c;line-height:1.6">${escena.narrador}</p>
-        </div>
-        <div class="card-kawaii" style="text-align:center">
-          <p style="font-size:.8rem;color:#ad1457;margin-bottom:.3rem">✨ Usa tu magia matemática ✨</p>
-          <p id="enunciado" style="font-size:1.2rem;font-weight:bold;color:#880e4f">${pregunta.enunciado}</p>
+          <p style="font-size:1rem;color:#4a148c;line-height:1.7">${escena.narrador}</p>
+          <p style="font-size:.8rem;color:#ad1457;margin-top:.5rem">✨ ¿Cuál es la respuesta? ✨</p>
         </div>
         <div id="opciones" style="display:grid;grid-template-columns:${pregunta.opciones ? '1fr 1fr' : '1fr'};gap:.6rem">
           ${buildOpcionesHTML(pregunta)}
@@ -79,7 +76,6 @@ export function mount(container, state, params, navigate) {
       sfxError();
       fb.textContent = `❌ La respuesta correcta era ${pregunta.respuesta}`;
       fb.style.color = '#c62828';
-      document.getElementById('enunciado')?.classList.add('shake');
     }
     setTimeout(() => {
       const next = idx + 1;
