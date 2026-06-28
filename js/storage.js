@@ -22,10 +22,15 @@ export function load() {
     if (!raw) return structuredClone(DEFAULT);
     const parsed = JSON.parse(raw);
     const base = structuredClone(DEFAULT);
-    // Deep merge: top-level fields override defaults, niveles merged per-key
     Object.assign(base, parsed);
     for (let i = 1; i <= 5; i++) {
       base.niveles[i] = { ...DEFAULT.niveles[i], ...(parsed.niveles?.[i] ?? {}) };
+    }
+    // Migración: desbloquear niveles con 10 escenas completadas
+    for (let i = 1; i <= 4; i++) {
+      if (base.niveles[i].escenas_ok.length >= 10) {
+        base.niveles[i + 1].desbloqueado = true;
+      }
     }
     return base;
   } catch { return structuredClone(DEFAULT); }
