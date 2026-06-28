@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><title>Tests Luna</title>
+<style>body{font-family:monospace;padding:1rem} .ok{color:green} .fail{color:red}</style>
+</head><body>
+<h2>Tests — Luna Mágica</h2><div id="out"></div>
+<script type="module">
+import { load, save, completarEscena, reset } from '../js/storage.js';
+import { generarPregunta, calcularEstrellas } from '../js/engine.js';
+
+const out = document.getElementById('out');
+let passed=0, failed=0;
+function assert(desc, cond) {
+  const el = document.createElement('div');
+  el.className = cond ? 'ok' : 'fail';
+  el.textContent = (cond ? '✓' : '✗') + ' ' + desc;
+  out.appendChild(el);
+  cond ? passed++ : failed++;
+}
+
+// --- storage ---
+reset();
+const s = load();
+assert('load() devuelve estado por defecto', s.jugadora === 'Cecilia');
+assert('nivel 1 desbloqueado por defecto', s.niveles[1].desbloqueado === true);
+assert('nivel 2 bloqueado por defecto', s.niveles[2].desbloqueado === false);
+
+save(s);
+const s2 = load();
+assert('save + load es idempotente', s2.jugadora === 'Cecilia');
+
+const s3 = completarEscena(load(), 1, 'e1', 3, 10);
+assert('completarEscena añade escena_ok', s3.niveles[1].escenas_ok.includes('e1'));
+assert('completarEscena suma monedas', s3.monedas_total === 10);
+
+// desbloqueo de nivel: completar 10 escenas con ≥2 estrellas desbloquea nivel 2
+reset();
+let su = load();
+for (let i=1; i<=10; i++) su = completarEscena(su, 1, `e${i}`, 2, 5);
+assert('nivel 2 se desbloquea al completar nivel 1 con ≥2 estrellas', su.niveles[2].desbloqueado === true);
+assert('nivel 3 sigue bloqueado', su.niveles[3].desbloqueado === false);
+
+// --- engine ---
+const p1 = generarPregunta(1);
+assert('nivel 1 genera pregunta con opciones', Array.isArray(p1.opciones) && p1.opciones.length === 4);
+assert('nivel 1 respuesta correcta está en opciones', p1.opciones.includes(p1.respuesta));
+assert('nivel 1 tipo es flash', p1.tipo === 'flash');
+
+const p2 = generarPregunta(2);
+assert('nivel 2 tipo es escribe o factor', ['escribe','factor'].includes(p2.tipo));
+
+const p3 = generarPregunta(3);
+assert('nivel 3 incluye division o problema', ['division','problema','escribe'].includes(p3.tipo));
+
+assert('3 aciertos rápidos = 3 estrellas', calcularEstrellas(10,0,9000) === 3);
+assert('fallos = menos estrellas', calcularEstrellas(10,3,9000) < 3);
+
+// resumen
+const total = passed+failed;
+const sumEl = document.createElement('p');
+sumEl.style.marginTop='1rem'; sumEl.style.fontWeight='bold';
+sumEl.textContent = `${passed}/${total} tests pasados`;
+out.appendChild(sumEl);
+</script>
+</body></html>
