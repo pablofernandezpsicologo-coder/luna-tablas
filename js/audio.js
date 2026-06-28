@@ -1,5 +1,12 @@
 let ctx = null;
 let muted = false;
+let cachedVoices = [];
+
+if (window.speechSynthesis) {
+  const loadVoices = () => { cachedVoices = speechSynthesis.getVoices(); };
+  loadVoices();
+  speechSynthesis.addEventListener('voiceschanged', loadVoices);
+}
 
 function getCtx() {
   if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -49,8 +56,7 @@ export function hablar(texto) {
   if (muted || !window.speechSynthesis) return;
   const u = new SpeechSynthesisUtterance(texto);
   u.lang = 'es-ES'; u.rate = .9; u.pitch = 1.1;
-  // Escoger voz femenina si está disponible
-  const voces = speechSynthesis.getVoices();
+  const voces = cachedVoices.length ? cachedVoices : speechSynthesis.getVoices();
   const voz = voces.find(v => v.lang.startsWith('es') && v.name.toLowerCase().includes('female'))
             || voces.find(v => v.lang.startsWith('es'))
             || voces[0];

@@ -30,18 +30,20 @@ export function mount(container, state, params, navigate) {
   const ctx = canvas.getContext('2d');
   drawLuna(ctx, 110, 175, .9, 'feliz');
 
-  setTimeout(() => hablar('¡Hola Cecilia! Soy Luna. La Bruja del Olvido robó el Libro Mágico. ¡Solo tú puedes ayudarme!'), 600);
-
   canvas.classList.add('fade-in');
 
   document.getElementById('btn-start').onclick = () => {
+    hablar('¡Hola Cecilia! Soy Luna. La Bruja del Olvido robó el Libro Mágico. ¡Solo tú puedes ayudarme a recuperarlo!');
     state.sesiones = (state.sesiones || 0) + 1;
     save(state);
     navigate('mapa');
   };
 
   const btnCont = document.getElementById('btn-continue');
-  if (btnCont) btnCont.onclick = () => navigate('mapa');
+  if (btnCont) btnCont.onclick = () => {
+    hablar('¡Bienvenida de nuevo, Cecilia! ¡Sigamos la aventura!');
+    navigate('mapa');
+  };
 }
 
 export function unmount() {}
