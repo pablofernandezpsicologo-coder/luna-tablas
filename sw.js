@@ -1,4 +1,4 @@
-const CACHE = 'luna-v2';
+const CACHE = 'luna-v3';
 const ASSETS = ['./', './index.html', './manifest.json',
   './icon-192.png', './icon-512.png',
   './css/base.css', './css/kawaii.css', './css/animations.css',
