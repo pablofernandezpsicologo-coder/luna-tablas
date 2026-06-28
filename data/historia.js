@@ -58,7 +58,7 @@ export const ESCENAS = {
       pregunta:{ tipo:'escribe', enunciado:'4 × 9 = ?', respuesta:36 }
     },
     { id:'2-4', titulo:'El factor oculto',
-      narrador:'La bruja borró un número del mapa. ¿Puedes encontrarlo?',
+      narrador:'La bruja borró un número del mapa. Sabes que ese número multiplicado por 7 da exactamente 63. ¿Cuál es el número que borró?',
       pregunta:{ tipo:'factor', enunciado:'__ × 7 = 63', respuesta:9 }
     },
     { id:'2-5', titulo:'El prado misterioso',
@@ -74,7 +74,7 @@ export const ESCENAS = {
       pregunta:{ tipo:'escribe', enunciado:'9 × 9 = ?', respuesta:81 }
     },
     { id:'2-8', titulo:'El mapa del valle',
-      narrador:'Falta un número en el mapa del Valle de Unicornios.',
+      narrador:'Falta un número en el mapa del Valle. Ese número multiplicado por 6 da exactamente 54. ¡Encuéntralo para continuar!',
       pregunta:{ tipo:'factor', enunciado:'__ × 6 = 54', respuesta:9 }
     },
     { id:'2-9', titulo:'El puente arcoíris',
@@ -138,7 +138,7 @@ export const ESCENAS = {
       pregunta:{ tipo:'division', enunciado:'63 ÷ 9 = ?', respuesta:7, opciones:[7,6,8,9] }
     },
     { id:'4-3', titulo:'El mapa estelar',
-      narrador:'Falta un número en el mapa de la galaxia. Encuéntralo.',
+      narrador:'La bruja borró una estrella del mapa galáctico. Sabes que ese número de grupos, multiplicado por 9, da 72. ¿Cuántos grupos hay?',
       pregunta:{ tipo:'factor', enunciado:'__ × 9 = 72', respuesta:8 }
     },
     { id:'4-4', titulo:'Los astronautas',
@@ -180,7 +180,7 @@ export const ESCENAS = {
       pregunta:{ tipo:'escribe', enunciado:'8 × 8 = ?', respuesta:64 }
     },
     { id:'5-3', titulo:'La armadura mágica',
-      narrador:'Falta el número secreto para abrir la armadura.',
+      narrador:'La armadura tiene un número secreto grabado. Ese número multiplicado por 8 da 72. ¿Cuál es el número que abre la armadura?',
       pregunta:{ tipo:'factor', enunciado:'__ × 8 = 72', respuesta:9 }
     },
     { id:'5-4', titulo:'Los guardias del reino',
@@ -208,7 +208,7 @@ export const ESCENAS = {
       pregunta:{ tipo:'escribe', enunciado:'9 × 9 = ?', respuesta:81 }
     },
     { id:'5-10', titulo:'El Libro Restaurado — Batalla Final',
-      narrador:'Cecilia, este es el enigma final. Si lo resuelves, la Bruja del Olvido desaparecerá para siempre.',
+      narrador:'Cecilia, el último cristal del Libro tiene 8 filas de 9 runas mágicas, más 8 runas sueltas al final. ¿Cuántas runas tiene el Libro en total? ¡La Bruja del Olvido desaparecerá para siempre!',
       pregunta:{ tipo:'escribe', enunciado:'8 × 9 + 8 = ?', respuesta:80 }
     },
   ],
